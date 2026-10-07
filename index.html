@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kuslig Halloween-hälsning!</title>
-<link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <style>
         * {
             box-sizing: border-box;
         }
-        
+
         body {
             background-color: #000000;
             color: #ffffff;
@@ -55,15 +55,19 @@
         }
 
         .pumpkin {
-            font-size: 5rem;
-            margin: 20px 0;
+            margin: 20px 0 5px;
             cursor: pointer;
             display: inline-block;
-            transition: transform 0.2s;
             user-select: none;
         }
 
-        .pumpkin:active {
+        .pumpkin img {
+            display: block;
+            margin: 0 auto;
+            transition: transform 0.2s;
+        }
+
+        .pumpkin:active img {
             transform: scale(1.3) rotate(10deg);
         }
 
@@ -83,7 +87,6 @@
             }
         }
 
-        /* CSS för fladdermössen */
         .bat {
             position: absolute;
             z-index: 1;
@@ -115,8 +118,8 @@
     <div class="card">
         <h1>Läskig Halloween!</h1>
         <div class="pumpkin" id="pumpkinBtn" title="Klicka på mig om du vågar...">
-  <img src="pumpa.png" alt="Pumpa" width="200">
-</div>
+            <img src="pumpa.png" alt="Pumpa" width="200">
+        </div>
         <p>Hoppas din kväll blir fylld av lagom mycket skräck, massor av godis och magiska stunder.</p>
         <p id="spookyText"><em>Bus eller godis? 👻</em></p>
         <div class="footer">Kusliga hälsningar från en vän</div>
@@ -125,7 +128,7 @@
     <script>
         const pumpkin = document.getElementById("pumpkinBtn");
         const text = document.getElementById("spookyText");
-        
+
         const sounds = [
             "Booo! 👻",
             "Muhahaha! 🧙\u200D♀️",
@@ -137,8 +140,7 @@
         pumpkin.addEventListener("click", function() {
             const randomMessage = sounds[Math.floor(Math.random() * sounds.length)];
             text.innerHTML = "<strong>" + randomMessage + "</strong>";
-            
-            // Skapa 3 fladdermöss samtidigt när man klickar på pumpan
+
             createBat();
             setTimeout(createBat, 200);
             setTimeout(createBat, 400);
@@ -148,30 +150,24 @@
             const bat = document.createElement("div");
             bat.className = "bat";
             bat.innerText = "🦇";
-            
-            // SLUMPMÄSSIG STORLEK: Mellan 16px (liten) och 50px (stor)
+
             const randomSize = Math.floor(Math.random() * 35) + 16;
             bat.style.fontSize = randomSize + "px";
-            
-            // Slumpmässig starthöjd (mellan 10% och 80% av skärmhöjden)
+
             bat.style.top = (Math.random() * 70 + 10) + "vh";
-            
-            // Slumpmässig hastighet baserat på storlek (små fladdermöss ser ut att vara längre bort och flyger lite långsammare)
+
             const speed = randomSize < 25 ? (Math.random() * 2 + 6) : (Math.random() * 2 + 4);
             bat.style.animationDuration = speed + "s";
-            
+
             document.body.appendChild(bat);
 
-            // Ta bort fladdermusen när den flugit förbi
             setTimeout(function() {
                 bat.remove();
             }, speed * 1000);
         }
 
-        // Skapa ett automatiskt flöde av fladdermöss i bakgrunden var 1.5:e sekund
         setInterval(createBat, 1500);
 
-        // Skapa 4 fladdermöss direkt när sidan laddas
         createBat();
         setTimeout(createBat, 400);
         setTimeout(createBat, 800);
